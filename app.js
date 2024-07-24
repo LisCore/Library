@@ -1,61 +1,150 @@
-const myLibrary = [];
-const btn = document.querySelector(".add-book");
-const bookList = document.querySelector(".book-list");
-const formContainer = document.querySelector("#form-container");
-const bookContainer = document.querySelector(".books");
+// class Library {
+//     constructor(name) {
+//         this.name = name;
+//         this.books = [];
+//     }
+//     addPageEntry() {
+//         const createEntry = document.createElement("div");
+//         createEntry.classList = "add-entry";
+//         createEntry.textContent = `Book Name: ${this.name}\t\t\tAuthor Name: ${this.author}
+//         \nPage Count: ${this.pageCount}\t\t\tRead: ${this.read}`;
+//         form.appendChild(createEntry);
+//     }
+// }
 
-function Book(name, author, pages) {
-    this.name = name;
-    this.author = author;
-    this.pages = pages;
-}
+// class Book extends Library {
+//     constructor(title, author, pageCount, read) {
+//         super(title);
+//         this.author = author;
+//         this.pageCount = pageCount;
+//         this.read = read;
+//     }
+// }
 
-function addBookToLib() {
-    book.input
-}
-function createBookForm() {
-    formContainer.innerHTML = '';
-    const formHTML = `
-    <form id="bookForm">
-        <label for="bookName">Book Name:</label>
-        <input type="text" id="bookName" name="bookName" required>
-        <br>
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required>
-        <br>
-        <label for="pages">Number of Pages:</label>
-        <input type="number" id="pages" name="pages" required>
-        <br>
-        <button type="submit">Submit Entry</button>
-    </form>
-    `;
+// const btn = document.querySelector(".add-book");
+// const form = document.querySelector("#form-container");
+// btn.addEventListener("click", getBookQuery);
 
-    formContainer.innerHTML = formHTML;
+// function getBookQuery() {
+//     // let formOverlay = document.createElement("div");
+//     // formOverlay.innerHTML = `
+//     // <form id="books-info>
+//     //     <label for="book-name">Book Name:</label>
+//     //     <input type="text" id="book-name" name="book-name" required><br>
+//     //     <label for="author-name">Author Name:</label>
+//     //     <input type="text" id="author-name" name="author-name" require><br>
+//     //     <label for="page-count">Page Count:</label>
+//     //     <input type="number" id="page-count name="page-count" required><br>
+//     //     <fieldset>
+//     //         <legend>Have you read this book?</legend>
+//     //         <label for="yes">Yes</label>
+//     //         <input type="radio" id="yes" name="read-option"><br>
+//     //         <label for="no">No</label>
+//     //         <input type="radio" id="no" name="read-option"><br
+//     //     </fieldset>
+//     //     <button id="close">Submit</button>
+//     // </form>
+//     // `
+//     let formOverlay = document.createElement("div");
+//     formOverlay.innerHTML = `
+//     <form id="books-info">
+//         <label for="book-name">Book Name:</label>
+//         <input type="text" id="book-name" name="book-name" required><br>
+//         <label for="author-name">Author Name:</label>
+//         <input type="text" id="author-name" name="author-name" required><br>
+//         <label for="page-count">Page Count:</label>
+//         <input type="number" id="page-count" name="page-count" required><br>
+//         <fieldset>
+//             <legend>Have you read this book?</legend>
+//             <label for="yes">Yes</label>
+//             <input type="radio" id="yes" name="read-option" value="yes"><br>
+//             <label for="no">No</label>
+//             <input type="radio" id="no" name="read-option" value="no"><br>
+//         </fieldset>
+//         <button type="button" id="submitBook">Submit</button>
+//     </form>
+//     `;
+//     document.body.appendChild(formOverlay);
+//     formOverlay.classList.add("show");
+//     document.getElementById("submitBook").addEventListener("click", sendQuery);
+// }
+// function sendQuery() {
+//     const bookName = document.getElementById("book-name").value;
+//     const authorName = document.getElementById("author-name").value;
+//     const pageCount = document.getElementById("page-count").value;
+//     const read = document.querySelector('input[name="read-option"]:checked').value === 'yes';
 
-    const bookForm = document.getElementById('bookForm');
-    bookForm.addEventListener('submit', handleFormSubmit);
-}
+//     const book = new Book(bookName, authorName, pageCount, read);
+//     book.addPageEntry();
+// }
+class Library {
+    constructor(name) {
+        this.name = name;
+        this.books = [];
+    }
 
-function handleFormSubmit(event) {
-    event.preventDefault();
+    addBook(book) {
+        this.books.push(book);
+        this.addPageEntry(book);
+    }
 
-    const bookName = document.getElementById('bookName').value.trim();
-    const author = document.getElementById('author').value.trim();
-    const pages = document.getElementById('pages').value.trim();
-
-    if (bookName !== '' && author !== '' && pages !== '') {
-        const bookEntry = document.createElement('div');
-        bookEntry.classList.add('book-entry');
-        bookEntry.innerHTML = `
-            <p><strong>Title:</strong> ${bookName}</p>
-            <p><strong>Author:</strong> ${author}</p>
-            <p><strong>Pages:</strong> ${pages}</p>
-        `;
-        booksContainer.appendChild(bookEntry);
-
-        formContainer.innerHTML = ''; // Clear the form container after submission
-    } else {
-        alert('Please fill out all fields');
+    addPageEntry(book) {
+        const createEntry = document.createElement("div");
+        createEntry.classList = "add-entry";
+        createEntry.textContent = `Book Name: ${book.title}\t\t\tAuthor Name: ${book.author}\nPage Count: ${book.pageCount}\t\t\tRead: ${book.read}`;
+        document.querySelector("#libraryContainer").appendChild(createEntry);
     }
 }
-btn.addEventListener("click", createBookForm); 
+
+class Book {
+    constructor(title, author, pageCount, read) {
+        this.title = title;
+        this.author = author;
+        this.pageCount = pageCount;
+        this.read = read;
+    }
+}
+
+const btn = document.querySelector(".add-book");
+const form = document.querySelector("#form-container");
+btn.addEventListener("click", getBookQuery);
+
+function getBookQuery() {
+    let formOverlay = document.createElement("div");
+    formOverlay.innerHTML = `
+    <form id="books-info">
+        <label for="book-name">Book Name:</label>
+        <input type="text" id="book-name" name="book-name" required><br>
+        <label for="author-name">Author Name:</label>
+        <input type="text" id="author-name" name="author-name" required><br>
+        <label for="page-count">Page Count:</label>
+        <input type="number" id="page-count" name="page-count" required><br>
+        <fieldset>
+            <legend>Have you read this book?</legend>
+            <label for="yes">Yes</label>
+            <input type="radio" id="yes" name="read-option" value="yes"><br>
+            <label for="no">No</label>
+            <input type="radio" id="no" name="read-option" value="no"><br>
+        </fieldset>
+        <button type="button" id="submitBook">Submit</button>
+    </form>
+    `;
+    document.body.appendChild(formOverlay);
+    formOverlay.classList.add("show");
+
+    document.getElementById("submitBook").addEventListener("click", sendQuery);
+}
+
+function sendQuery() {
+    const bookName = document.getElementById("book-name").value;
+    const authorName = document.getElementById("author-name").value;
+    const pageCount = document.getElementById("page-count").value;
+    const read = document.querySelector('input[name="read-option"]:checked').value === 'yes';
+
+    const book = new Book(bookName, authorName, pageCount, read);
+    myLibrary.addBook(book);
+
+    document.querySelector(".show").remove();
+}
+
+const myLibrary = new Library('My Library');
